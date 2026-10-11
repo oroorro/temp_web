@@ -1,0 +1,27 @@
+import { cx } from '../../logic/classNames';
+import type { Option } from '../../types/ui';
+
+interface SegmentedControlProps<T extends string> {
+  label: string;
+  value: T;
+  options: Option<T>[];
+  onChange: (value: T) => void;
+}
+
+export function SegmentedControl<T extends string>({ label, value, options, onChange }: SegmentedControlProps<T>) {
+  return (
+    <div className="segmented" role="group" aria-label={label}>
+      {options.map((option) => (
+        <button
+          key={option.value}
+          type="button"
+          className={cx('segmented__item', option.value === value && 'is-active')}
+          aria-pressed={option.value === value}
+          onClick={() => onChange(option.value)}
+        >
+          {option.label}
+        </button>
+      ))}
+    </div>
+  );
+}

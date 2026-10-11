@@ -1,0 +1,100 @@
+{
+  "id": "settings.form",
+  "version": 1,
+  "root": {
+    "type": "Stack",
+    "props": { "gap": "lg" },
+    "children": [
+      {
+        "type": "FormSection",
+        "props": {
+          "title": "Workspace",
+          "description": "How this workspace is named and how dates are written."
+        },
+        "children": [
+          {
+            "type": "TextField",
+            "props": {
+              "name": "workspaceName",
+              "label": "Workspace name",
+              "help": "Shown in the sidebar and in the browser tab."
+            }
+          },
+          {
+            "type": "SelectField",
+            "props": {
+              "name": "dateFormat",
+              "label": "Date format",
+              "help": "Used for due dates on projects.",
+              "options": [
+                { "value": "medium", "label": "Medium (Oct 9, 2026)" },
+                { "value": "short", "label": "Short (10/9/26)" },
+                { "value": "relative", "label": "Relative (in 3 days)" }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "type": "FormSection",
+        "props": {
+          "title": "Projects and boards",
+          "description": "Defaults for the project list and for every task board."
+        },
+        "children": [
+          {
+            "type": "SelectField",
+            "props": {
+              "name": "defaultProjectSort",
+              "label": "Default project order",
+              "help": "Applies until a different order is picked on the Projects page.",
+              "options": [
+                { "value": "updated", "label": "Recently updated" },
+                { "value": "name", "label": "Name" },
+                { "value": "due", "label": "Due date" },
+                { "value": "progress", "label": "Progress" }
+              ]
+            }
+          },
+          {
+            "type": "ToggleField",
+            "props": {
+              "name": "showCompletedTasks",
+              "label": "Show the Done column",
+              "help": "Turn off to keep finished tasks out of the board."
+            }
+          },
+          {
+            "type": "NumberField",
+            "props": {
+              "name": "wipLimit",
+              "label": "In-progress limit",
+              "help": "Boards warn when more tasks than this are in progress. 0 turns the warning off.",
+              "min": 0,
+              "max": 20
+            }
+          }
+        ]
+      },
+      {
+        "type": "FormSection",
+        "props": {
+          "title": "Dashboard",
+          "description": "What the overview page shows."
+        },
+        "children": [
+          {
+            "type": "NumberField",
+            "props": {
+              "name": "activityFeedSize",
+              "label": "Recent activity entries",
+              "help": "Between 3 and 20.",
+              "min": 3,
+              "max": 20
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

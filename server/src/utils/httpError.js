@@ -1,0 +1,12 @@
+export class HttpError extends Error {
+  constructor(status, message, details) {
+    super(message);
+    this.name = 'HttpError';
+    this.status = status;
+    this.details = details;
+  }
+}
+
+export const notFound = (what) => new HttpError(404, `${what} not found`);
+
+export const badRequest = (message, details) => new HttpError(400, message, details);

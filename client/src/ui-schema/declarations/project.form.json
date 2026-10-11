@@ -1,0 +1,56 @@
+{
+  "id": "project.form",
+  "version": 1,
+  "root": {
+    "type": "Stack",
+    "props": { "gap": "md" },
+    "children": [
+      {
+        "type": "TextField",
+        "props": { "name": "name", "label": "Name", "placeholder": "e.g. Customer portal" }
+      },
+      {
+        "type": "TextField",
+        "props": {
+          "name": "description",
+          "label": "Description",
+          "placeholder": "What is this project about?",
+          "multiline": true
+        }
+      },
+      {
+        "type": "Grid",
+        "props": { "minItemWidth": 200 },
+        "children": [
+          {
+            "type": "SelectField",
+            "props": {
+              "name": "ownerId",
+              "label": "Owner",
+              "placeholder": "Choose a person",
+              "options": { "$bind": "memberOptions" }
+            }
+          },
+          {
+            "type": "SelectField",
+            "props": { "name": "status", "label": "Status", "options": { "$bind": "statusOptions" } }
+          }
+        ]
+      },
+      {
+        "type": "Grid",
+        "props": { "minItemWidth": 200 },
+        "children": [
+          {
+            "type": "TextField",
+            "props": { "name": "dueDate", "label": "Due date", "inputType": "date", "help": "Optional." }
+          },
+          {
+            "type": "TextField",
+            "props": { "name": "tags", "label": "Tags", "placeholder": "design, mobile", "help": "Separate with commas." }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,183 @@
+{
+  "id": "dashboard.page",
+  "version": 1,
+  "root": {
+    "type": "Stack",
+    "props": { "gap": "lg" },
+    "children": [
+      {
+        "type": "Grid",
+        "id": "stats",
+        "props": { "minItemWidth": 200 },
+        "children": [
+          {
+            "type": "StatTile",
+            "props": {
+              "label": "Projects",
+              "value": { "$bind": "totals.projects" },
+              "hint": "{{totals.activeProjects}} active"
+            }
+          },
+          {
+            "type": "StatTile",
+            "props": {
+              "label": "Open tasks",
+              "value": { "$bind": "totals.openTasks" },
+              "hint": "of {{totals.tasks}} in total"
+            }
+          },
+          {
+            "type": "StatTile",
+            "props": {
+              "label": "Completion",
+              "value": "{{totals.completionRate}}%",
+              "hint": "{{totals.completedTasks}} tasks done",
+              "badge": { "$bind": "completion.label" },
+              "badgeTone": { "$bind": "completion.tone" }
+            }
+          },
+          {
+            "type": "StatTile",
+            "props": {
+              "label": "Overdue projects",
+              "value": { "$bind": "totals.overdueProjects" },
+              "hint": { "$bind": "overdue.hint" },
+              "badge": { "$bind": "overdue.badge" },
+              "badgeTone": "danger"
+            }
+          }
+        ]
+      },
+      {
+        "type": "Grid",
+        "id": "breakdowns",
+        "props": { "minItemWidth": 320 },
+        "children": [
+          {
+            "type": "Card",
+            "props": { "title": "Tasks by status", "subtitle": "Across every project" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": { "gap": "md" },
+                "children": [
+                  {
+                    "type": "ProgressBar",
+                    "repeat": { "source": "tasksByStatus", "as": "row", "key": "row.status" },
+                    "props": {
+                      "label": { "$bind": "row.label" },
+                      "value": { "$bind": "row.count" },
+                      "max": { "$bind": "totals.tasks" },
+                      "tone": { "$bind": "row.tone" }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Card",
+            "props": { "title": "Team workload", "subtitle": "Open tasks per person" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": { "gap": "md" },
+                "children": [
+                  {
+                    "type": "ProgressBar",
+                    "repeat": { "source": "workload", "as": "person", "key": "person.id" },
+                    "props": {
+                      "label": { "$bind": "person.name" },
+                      "value": { "$bind": "person.openTasks" },
+                      "max": { "$bind": "maxWorkload" },
+                      "valueLabel": { "$bind": "person.hint" },
+                      "tone": "info"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Grid",
+        "id": "lists",
+        "props": { "minItemWidth": 320 },
+        "children": [
+          {
+            "type": "Card",
+            "props": { "title": "Upcoming deadlines", "subtitle": "Open projects, soonest first" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": { "gap": "xs" },
+                "children": [
+                  {
+                    "type": "ListRow",
+                    "repeat": {
+                      "source": "upcoming",
+                      "as": "project",
+                      "key": "project.id",
+                      "empty": {
+                        "type": "EmptyState",
+                        "props": {
+                          "title": "No deadlines ahead",
+                          "description": "Open projects with a due date show up here."
+                        }
+                      }
+                    },
+                    "props": {
+                      "title": { "$bind": "project.name" },
+                      "description": { "$bind": "project.detail" },
+                      "badge": { "$bind": "project.dueLabel" },
+                      "badgeTone": { "$bind": "project.dueTone" },
+                      "onClick": { "$action": "navigate", "payload": "/projects/{{project.id}}" }
+                    }
+                  },
+                  {
+                    "type": "Button",
+                    "props": {
+                      "label": "View all projects",
+                      "variant": "ghost",
+                      "size": "sm",
+                      "onClick": { "$action": "navigate", "payload": "/projects" }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Card",
+            "props": { "title": "Recent activity", "subtitle": "Latest changes in the workspace" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": { "gap": "xs" },
+                "children": [
+                  {
+                    "type": "ListRow",
+                    "repeat": {
+                      "source": "activity",
+                      "as": "entry",
+                      "key": "entry.id",
+                      "empty": {
+                        "type": "EmptyState",
+                        "props": { "title": "Nothing has happened yet" }
+                      }
+                    },
+                    "props": {
+                      "title": { "$bind": "entry.message" },
+                      "meta": { "$bind": "entry.when" }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
