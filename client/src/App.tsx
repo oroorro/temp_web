@@ -10,7 +10,15 @@ import { TeamPage } from './pages/TeamPage';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <AppShell />,
+    element: (
+      <AppShell
+        brandName=" HQ"
+        sidebarFooter={<span>v1.0.0</span>}
+        showBreadcrumbs
+        topBarActions={<span>Beta</span>}
+        contentClassName="shell__content--padded"
+      />
+    ),
     children: [
       { index: true, element: <DashboardPage /> },
       { path: 'projects', element: <ProjectsPage /> },

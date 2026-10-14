@@ -17,7 +17,9 @@ export function PageContainer({ title, subtitle, actions, children }: PageContai
   return (
     <div className="page">
       <PageHeader title={title} subtitle={subtitle} actions={actions} />
-      <div className="page__body">{children}</div>
+      <div className="page__body">
+        {children}
+      </div>
     </div>
   );
 }
