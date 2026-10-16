@@ -85,6 +85,19 @@ button:disabled {
   overflow-y: auto;
 }
 
+.shell__status {
+  flex: none;
+  padding: var(--space-1) var(--space-4);
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.shell__status--alert {
+  color: var(--accent);
+}
+
 .shell__content--padded {
   padding: var(--space-4);
 }
@@ -178,6 +191,11 @@ button:disabled {
   align-items: center;
   gap: var(--space-2);
   margin-left: auto;
+}
+
+.topbar__greeting {
+  color: var(--text-muted);
+  font-size: 13px;
 }
 
 .topbar__badge {
